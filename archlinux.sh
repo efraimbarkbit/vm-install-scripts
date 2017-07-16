@@ -9,8 +9,8 @@ mkdir /mnt/boot
 mount /dev/sda2 /mnt
 mount /dev/sda1 /mnt/boot
 
-echo "Server = https://ftp.acc.umu.se/mirror/archlinux/\$repo/os/\$arch\nServer = https://archlinux.dynamict.se/\$repo/os/\$arch\nServer = https://ftp.lysator.liu.se/pub/archlinux/\$repo/os/\$arch\nServer = https://ftp.myrveln.se/pub/linux/archlinux/\$repo/os/\$arch\nServer = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
-pacman -Syy
+printf "Server = https://ftp.acc.umu.se/mirror/archlinux/\$repo/os/\$arch\nServer = https://archlinux.dynamict.se/\$repo/os/\$arch\nServer = https://ftp.lysator.liu.se/pub/archlinux/\$repo/os/\$arch\nServer = https://ftp.myrveln.se/pub/linux/archlinux/\$repo/os/\$arch\nServer = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+pacman -Syy --force
 
 pacstrap /mnt base base-devel
 arch-chroot /mnt pacman -S syslinux --noconfirm
@@ -32,10 +32,10 @@ mkinitcpio -p linux
 syslinux-install_update -iam
 
 sed 's/root=.*/root=\/dev\/sda2 ro/' < /boot/syslinux/syslinux.cfg > /boot/syslinux/syslinux.cfg.new
+cp /boot/syslinux/syslinux.cfg.new /boot/syslinux/syslinux.cfg
 
-mv /boot/syslinux/syslinux.cfg.new /boot/syslinux/syslinux.cfg
-systemctl enable systemd-networkd
 echo root:root | chpasswd
+systemctl enable systemd-netword
 
 EOF
 
