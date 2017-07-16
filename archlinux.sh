@@ -2,7 +2,7 @@ parted -s /dev/sda mktable msdos
 parted -s /dev/sda mkpart primary 0% 100m
 parted -s /dev/sda mkpart primary 100m 100%
 
-mkfs.ext2 -f /dev/sda1
+mkfs.ext2 -F /dev/sda1
 mkfs.btrfs -f /dev/sda2
 
 mount /dev/sda2 /mnt
