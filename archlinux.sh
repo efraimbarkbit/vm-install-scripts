@@ -5,8 +5,8 @@ parted -s /dev/sda mkpart primary 100m 100%
 mkfs.ext2 -f /dev/sda1
 mkfs.btrfs -f /dev/sda2
 
-mkdir -p /mnt/boot
 mount /dev/sda2 /mnt
+mkdir -p /mnt/boot
 mount /dev/sda1 /mnt/boot
 
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
