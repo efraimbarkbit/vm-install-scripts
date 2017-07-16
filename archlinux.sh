@@ -9,8 +9,9 @@ mkdir /mnt/boot
 mount /dev/sda2 /mnt
 mount /dev/sda1 /mnt/boot
 
-printf "Server = https://ftp.acc.umu.se/mirror/archlinux/\$repo/os/\$arch\nServer = https://archlinux.dynamict.se/\$repo/os/\$arch\nServer = https://ftp.lysator.liu.se/pub/archlinux/\$repo/os/\$arch\nServer = https://ftp.myrveln.se/pub/linux/archlinux/\$repo/os/\$arch\nServer = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
-pacman -Syy --force
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
+rankmirrors -n 3 /etc/pacman.d/mirrorlist.orig >/etc/pacman.d/mirrorlist
+pacman -Syy
 
 pacstrap /mnt base base-devel
 arch-chroot /mnt pacman -S syslinux --noconfirm
