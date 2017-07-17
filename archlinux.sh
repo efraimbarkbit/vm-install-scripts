@@ -43,7 +43,9 @@ systemctl enable dhcpcd
 pacman --noconfirm -S xorg-server xorg-xinit virtualbox-guest-utils virtualbox-guest-modules-arch firefox
 modprobe vboxvideo
 
-print "#!/bin/sh\nmatchbox-window-manager -use_titlebar no &\nexec firefox" > ~/.xinitrc
+xinit
+
+printf "#!/bin/sh\nmatchbox-window-manager -use_titlebar no &\nexec firefox" > ~/.xinitrc
 
 localectl set-keymap sv-latin1
 localectl set-x11-keymap fi microsoftprose
