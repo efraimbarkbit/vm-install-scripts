@@ -45,10 +45,11 @@ modprobe vboxvideo
 
 xinit
 
-curl https://github.com/efraimbarkbit/vm-install-scripts/raw/master/.xinitrc > ~/.xinitrc
-curl https://github.com/efraimbarkbit/vm-install-scripts/raw/master/rc-local.service > /usr/lib/systemd/system/rc-local.service
-curl https://github.com/efraimbarkbit/vm-install-scripts/raw/master/rc.local > /etc/rc.local
+curl -L https://github.com/efraimbarkbit/vm-install-scripts/raw/master/.xinitrc > ~/.xinitrc
+curl -L https://github.com/efraimbarkbit/vm-install-scripts/raw/master/rc-local.service > /usr/lib/systemd/system/rc-local.service
+curl -L https://github.com/efraimbarkbit/vm-install-scripts/raw/master/rc.local > /etc/rc.local
 
+chmod +x /etc/rc.local
 systemctl enable rc-local.service
 
 EOF
