@@ -3,7 +3,7 @@ parted -s /dev/sda mkpart primary 0% 100m
 parted -s /dev/sda mkpart primary 100m 100%
 
 mkfs.ext2 -F /dev/sda1
-mkfs.btrfs -f /dev/sda2
+mkfs.btrfs /dev/sda2
 
 mount /dev/sda2 /mnt
 mkdir -p /mnt/boot
@@ -36,7 +36,17 @@ sed 's/root=.*/root=\/dev\/sda2 ro/' < /boot/syslinux/syslinux.cfg > /boot/sysli
 cp /boot/syslinux/syslinux.cfg.new /boot/syslinux/syslinux.cfg
 
 echo root:root | chpasswd
-systemctl enable systemd-netword
+
+systemctl enable systemd-networkd
+systemctl enable dhcpcd
+
+pacman --noconfirm -S xorg-server xorg-xinit virtualbox-guest-utils virtualbox-guest-modules-arch firefox
+modprobe vboxvideo
+
+print "#!/bin/sh\nmatchbox-window-manager -use_titlebar no &\nexec firefox"
+
+localectl set-keymap sv-latin1
+localectl set-x11-keymap fi microsoftprose
 
 EOF
 
