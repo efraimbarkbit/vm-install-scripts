@@ -1,0 +1,5 @@
+#!/bin/sh
+pacman -Syyu --noconfirm --force
+localectl set-keymap sv-latin1
+localectl set-x11-keymap fi microsoftprose
+startx

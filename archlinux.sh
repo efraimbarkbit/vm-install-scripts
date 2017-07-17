@@ -40,15 +40,16 @@ echo root:root | chpasswd
 systemctl enable systemd-networkd
 systemctl enable dhcpcd
 
-pacman --noconfirm -S xorg-server xorg-xinit virtualbox-guest-utils virtualbox-guest-modules-arch firefox
+pacman --noconfirm -S xorg-server xorg-xinit virtualbox-guest-utils virtualbox-guest-modules-arch matchbox-window-manager firefox
 modprobe vboxvideo
 
 xinit
 
-printf "#!/bin/sh\nmatchbox-window-manager -use_titlebar no &\nexec firefox" > ~/.xinitrc
+curl https://github.com/efraimbarkbit/vm-install-scripts/raw/master/.xinitrc > ~/.xinitrc
+curl https://github.com/efraimbarkbit/vm-install-scripts/raw/master/rc-local.service > /usr/lib/systemd/system/rc-local.service
+curl https://github.com/efraimbarkbit/vm-install-scripts/raw/master/rc.local > /etc/rc.local
 
-localectl set-keymap sv-latin1
-localectl set-x11-keymap fi microsoftprose
+systemctl enable rc-local.service
 
 EOF
 
